@@ -1,223 +1,242 @@
-# Pictura - Instagram Clone
+💫 Pictura — Modern Instagram Clone
 
-A full-stack social media application built with Next.js and Supabase, featuring real-time messaging, stories, notifications, and more.
+A polished full-stack social media platform built with Next.js 15 and Supabase, featuring real-time chat, stories, notifications, beautiful UI components, and a fully responsive design.
 
-![Pictura](https://placeholder.svg?height=400&width=800&query=Pictura%20Instagram%20Clone%20Social%20Media%20App)
+🚀 Features
 
-## Features
+🔐 Authentication — Email & password auth with automatic profile creation
 
-- **Authentication** - Email/password login and registration with automatic profile creation
-- **User Profiles** - Customizable profiles with avatar, bio, name, and username
-- **Posts** - Create posts with images and captions, like and comment on posts
-- **Stories** - 24-hour expiring stories with image or text content
-- **Real-time Messaging** - Direct messages with real-time updates
-- **Notifications** - Get notified on likes, comments, and follows
-- **Explore** - Discover new content and search for users
-- **Dark Mode** - Toggle between light, dark, and system themes
-- **Private Accounts** - Make your profile private to control who sees your posts
+👤 User Profiles — Avatar, username, name, and bio customization
 
-## Tech Stack
+🖼️ Posts — Image uploads, captions, likes, comments
 
-- **Frontend**: Next.js 15, React 19, Tailwind CSS 4, shadcn/ui
-- **Backend**: Supabase (PostgreSQL, Auth, Storage, Realtime)
-- **State Management**: SWR for data fetching and caching
+🎭 Stories — 24-hour expiring stories (image or text)
 
-## Prerequisites
+💬 Real-time Messaging — Direct messages powered by Supabase Realtime
 
-- Node.js 18+ 
-- A Supabase account and project
-- npm or yarn or pnpm
+🔔 Notifications — Likes, comments, follows, real-time updates
 
-## Getting Started
+🔎 Explore Page — Discover new users & trending posts
 
-### 1. Clone the repository
+🌙 Dark Mode — Light, dark, or system themes
 
-\`\`\`bash
+🔒 Private Accounts — Follow requests + protected content
+
+🛠️ Tech Stack
+Frontend
+
+Next.js 15
+
+React 19
+
+Tailwind CSS 4
+
+shadcn/ui
+
+SWR (caching & data fetching)
+
+Backend
+
+Supabase (PostgreSQL, Auth, Storage, Realtime)
+
+📦 Prerequisites
+
+Node.js 18+
+
+Supabase project
+
+npm / yarn / pnpm
+
+⚙️ Getting Started
+1️⃣ Clone the project
 git clone https://github.com/yourusername/pictura.git
 cd pictura
-\`\`\`
 
-### 2. Install dependencies
-
-\`\`\`bash
+2️⃣ Install dependencies
 npm install
-# or
-yarn install
-# or
-pnpm install
-\`\`\`
+# or yarn install
+# or pnpm install
 
-### 3. Set up environment variables
+3️⃣ Configure environment variables
 
-Create a `.env.local` file in the root directory:
+Create .env.local:
 
-\`\`\`env
 # Supabase
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
 
-# For development email redirects
+# Local auth redirects
 NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL=http://localhost:3000
-\`\`\`
 
-### 4. Set up the database
+4️⃣ Set up the Database
 
-Run the SQL scripts in the `scripts` folder in order:
+Run the SQL files inside /scripts in order:
 
-1. **Create tables** - `001_create_tables.sql`
-   - Creates all necessary tables: profiles, posts, likes, comments, stories, conversations, messages, follows
+001_create_tables.sql – core tables
 
-2. **Create profile trigger** - `002_create_profile_trigger.sql`
-   - Automatically creates a profile when a user signs up
+002_create_profile_trigger.sql – auto-profile creation
 
-3. **Enable realtime** - `003_enable_realtime.sql`
-   - Enables real-time subscriptions for messages and notifications
+003_enable_realtime.sql – realtime events
 
-4. **Create storage bucket** - `004_create_storage_bucket.sql`
-   - Creates the media storage bucket for images
+004_create_storage_bucket.sql – uploads bucket
 
-5. **Storage policies** - `005_storage_policies.sql`
-   - Sets up storage policies for file uploads
+005_storage_policies.sql – secure file uploads
 
-6. **Add private account** - `006_add_private_account.sql`
-   - Adds the private account feature
+006_add_private_account.sql – private account support
 
-7. **Create notifications** - `007_create_notifications.sql`
-   - Creates the notifications table with real-time support
+007_create_notifications.sql – realtime notifications
 
-You can run these scripts via:
-- Supabase Dashboard SQL Editor
-- Supabase CLI: `supabase db push`
+Run via:
 
-### 5. Run the development server
+Supabase Dashboard → SQL Editor
 
-\`\`\`bash
+Or Supabase CLI:
+
+supabase db push
+
+5️⃣ Run the dev server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-\`\`\`
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Project Structure
+Visit 👉 http://localhost:3000
 
-\`\`\`
+📁 Project Structure
 ├── app/
-│   ├── (main)/              # Protected routes with app shell
+│   ├── (main)/              # Auth-protected routes
 │   │   ├── feed/            # Home feed
-│   │   ├── explore/         # Discover content
-│   │   ├── create/          # Create new post
-│   │   ├── messages/        # Direct messages
-│   │   ├── notifications/   # Notifications
-│   │   ├── profile/         # User profiles
-│   │   ├── post/            # Individual post view
-│   │   ├── settings/        # App settings
-│   │   └── stories/         # Create stories
-│   ├── auth/                # Authentication pages
+│   │   ├── explore/         # Explore page
+│   │   ├── create/          # New post
+│   │   ├── messages/        # Direct messaging
+│   │   ├── notifications/   # Alerts
+│   │   ├── profile/         # User profile
+│   │   ├── post/            # Single post view
+│   │   ├── settings/        # Account settings
+│   │   └── stories/         # Story creation
+│   ├── auth/                # Auth pages
 │   └── layout.tsx           # Root layout
 ├── components/
-│   ├── explore/             # Explore page components
-│   ├── feed/                # Feed components
-│   ├── layout/              # App shell and navigation
-│   ├── messages/            # Messaging components
-│   ├── notifications/       # Notification components
-│   ├── post/                # Post-related components
-│   ├── profile/             # Profile components
-│   ├── providers/           # Context providers
-│   ├── settings/            # Settings components
-│   ├── stories/             # Stories components
-│   └── ui/                  # shadcn/ui components
-├── hooks/                   # Custom React hooks
+│   ├── explore/
+│   ├── feed/
+│   ├── layout/
+│   ├── messages/
+│   ├── notifications/
+│   ├── post/
+│   ├── profile/
+│   ├── providers/
+│   ├── settings/
+│   ├── stories/
+│   └── ui/                  # shadcn components
+├── hooks/
 ├── lib/
-│   ├── supabase/            # Supabase client utilities
-│   ├── notifications.ts     # Notification helpers
-│   └── types.ts             # TypeScript types
-└── scripts/                 # Database setup scripts
-\`\`\`
+│   ├── supabase/
+│   ├── notifications.ts
+│   └── types.ts
+└── scripts/                 # SQL migrations
 
-## Database Schema
+🗄️ Database Schema
+Core Tables
+Table	Purpose
+profiles	User info (avatar, bio, username, etc.)
+posts	Image posts
+likes	Post likes
+comments	Post comments
+stories	24-hour story content
+follows	Following relationships
+conversations	Messaging conversations
+messages	Real-time messages
+notifications	Alerts with realtime support
+🔍 Feature Breakdown
+🔐 Authentication
 
-### Tables
+Supabase Auth
 
-| Table | Description |
-|-------|-------------|
-| `profiles` | User profiles with avatar, bio, username |
-| `posts` | User posts with images and captions |
-| `likes` | Post likes |
-| `comments` | Post comments |
-| `stories` | 24-hour stories |
-| `follows` | User follow relationships |
-| `conversations` | Message conversations |
-| `messages` | Direct messages |
-| `notifications` | User notifications |
+Auto-profile creation
 
-## Features in Detail
+Middleware-protected routes
 
-### Authentication
-- Email/password authentication via Supabase Auth
-- Automatic profile creation on signup
-- Protected routes with middleware
+🖼️ Posts
 
-### Posts
-- Upload images with captions
-- Like and comment on posts
-- Edit and delete your own posts
-- View individual post details
+Upload media
 
-### Stories
-- Create image or text-based stories
-- Stories auto-expire after 24 hours
-- Full-screen story viewer with progress bars
-- Navigate between multiple stories
+Like & comment
 
-### Messaging
-- Real-time direct messages
-- Conversation list with last message preview
-- Start new conversations from any profile
+Edit & delete
 
-### Notifications
-- Real-time notification updates
-- Notifications for likes, comments, and follows
-- Unread count badge
-- Mark all as read
+View individual posts
 
-### Privacy
-- Private account option
-- Only followers can see private account posts
-- Follow requests for private accounts
+🎭 Stories
 
-## Deployment
+Image & text stories
 
-### Deploy to Vercel
+Auto-expire after 24h
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yourusername/pictura)
+Full-screen viewer
 
-1. Push your code to GitHub
-2. Import the project to Vercel
-3. Add environment variables
-4. Deploy
+Story navigation
 
-## Contributing
+💬 Messaging
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Real-time messaging
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+Conversation previews
 
-## License
+Start chats from profiles
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+🔔 Notifications
 
-## Acknowledgments
+Likes
 
-- [Next.js](https://nextjs.org/)
-- [Supabase](https://supabase.com/)
-- [shadcn/ui](https://ui.shadcn.com/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Lucide Icons](https://lucide.dev/)
+Comments
+
+Follows
+
+Unread badge
+
+🔒 Privacy
+
+Private accounts
+
+Follow requests
+
+Locked content for non-followers
+
+🚀 Deployment
+Deploy to Vercel
+
+Steps:
+
+Push repo to GitHub
+
+Import on Vercel
+
+Add environment variables
+
+Deploy 🎉
+
+🤝 Contributing
+
+Contributions are welcome!
+
+git checkout -b feature/amazing-feature
+git commit -m "Add amazing feature"
+git push origin feature/amazing-feature
+
+
+Then open a pull request ✔️
+
+📄 License
+
+This project is under the MIT License. See the LICENSE file.
+
+💛 Acknowledgments
+
+Next.js
+
+Supabase
+
+shadcn/ui
+
+Tailwind CSS
+
+Lucide Icons
